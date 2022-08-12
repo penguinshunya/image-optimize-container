@@ -1,8 +1,15 @@
-import fastify from "fastify";
 import { Storage } from "@google-cloud/storage";
+import fastify from "fastify";
 import sharp from "sharp";
 import { correctFormat, toMimeType, toQuery } from "./functions";
 import { Query } from "./types";
+
+const PORT = parseInt(process.env.PORT || "3000");
+const GCS_BUCKET_NAME = process.env.GCS_BUCKET_NAME;
+
+if (GCS_BUCKET_NAME === undefined) {
+  throw new Error("GCS_BUCKET_NAME is not defined");
+}
 
 const server = fastify();
 const storage = new Storage();
@@ -27,12 +34,6 @@ server.get("/*", async (req, res) => {
     return;
   }
 
-  const GCS_BUCKET_NAME = process.env.GCS_BUCKET_NAME;
-  if (!GCS_BUCKET_NAME) {
-    console.log("GCS_BUCKET_NAME is not set");
-    res.status(500).send("Internal server error");
-    return;
-  }
   const object = storage.bucket(GCS_BUCKET_NAME).file(path);
   const [exists] = await object.exists();
   if (!exists) {
@@ -57,8 +58,6 @@ server.get("/*", async (req, res) => {
   res.send(buffer);
 });
 
-const port = parseInt(process.env.PORT || "3000");
-
-server.listen({ host: "0.0.0.0", port }, () => {
-  console.log(`Server listening on port ${port}`);
+server.listen({ host: "0.0.0.0", port: PORT }, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
