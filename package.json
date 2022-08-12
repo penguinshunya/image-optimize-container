@@ -1,5 +1,5 @@
 {
-  "name": "fastify-test",
+  "name": "image-optimizer-container",
   "version": "1.0.0",
   "main": "dist/index.js",
   "license": "MIT",
