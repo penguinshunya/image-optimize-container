@@ -19,7 +19,7 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "GCS_BUCKET_NAME=penguinshunya-bucket ts-node ./src/index.ts",
+    "start": "ts-node ./src/index.ts",
     "test": "jest"
   }
 }
