@@ -1,4 +1,22 @@
-import { toMimeType, toQuery } from "./functions";
+import { correctFormat, toMimeType, toQuery } from "./functions";
+
+describe("correctFormat", () => {
+  it("undefined であれば false を返す", () => {
+    expect(correctFormat(undefined)).toBe(false);
+  });
+
+  it("webp であれば true を返す", () => {
+    expect(correctFormat("webp")).toBe(true);
+  });
+
+  it("avif であれば true を返す", () => {
+    expect(correctFormat("avif")).toBe(true);
+  });
+
+  it("gif であれば true を返す", () => {
+    expect(correctFormat("gif")).toBe(true);
+  });
+});
 
 describe("toQuery", () => {
   it("何も設定されていないときはすべて undefined が設定される", () => {

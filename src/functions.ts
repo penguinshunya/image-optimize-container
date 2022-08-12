@@ -1,7 +1,7 @@
 import { Format, FORMATS, Query } from "./types";
 
 export function correctFormat(format: unknown): format is Format {
-  return format === undefined || FORMATS.includes(format as Format);
+  return FORMATS.includes(format as Format);
 }
 
 export function toQuery(raw: unknown): Query {
