@@ -38,9 +38,31 @@ describe("toQuery", () => {
     expect(result).toEqual({ w: undefined, h: undefined, fm: "jpeg" });
   });
 
+  it("q に無効な値を入れるとエラーが発生する", () => {
+    expect(() => toQuery({ q: "invalid" })).toThrowError();
+  });
+
+  it("q に 1 未満の値を入れるとエラーが発生する", () => {
+    expect(() => toQuery({ q: "0" })).toThrowError();
+  });
+
+  it("q に 101 以上の値を入れるとエラーが発生する", () => {
+    expect(() => toQuery({ q: "101" })).toThrowError();
+  });
+
+  it("q に 0 以上 100 以下の値を入れるとその値が設定される", () => {
+    const result = toQuery({ q: "50" });
+    expect(result).toEqual({
+      w: undefined,
+      h: undefined,
+      fm: undefined,
+      q: 50,
+    });
+  });
+
   it("すべてが正しく設定される", () => {
-    const result = toQuery({ w: "100", h: "200", fm: "webp" });
-    expect(result).toEqual({ w: 100, h: 200, fm: "webp" });
+    const result = toQuery({ w: "100", h: "200", fm: "webp", q: "50" });
+    expect(result).toEqual({ w: 100, h: 200, fm: "webp", q: 50 });
   });
 });
 

@@ -44,7 +44,7 @@ server.get("/*", async (req, res) => {
   const pipe = object.createReadStream().pipe(sharp());
   pipe.resize(query.w, query.h);
   if (query.fm !== undefined) {
-    pipe.toFormat(query.fm);
+    pipe.toFormat(query.fm, { quality: query.q });
   }
   const outputFormat = await pipe.metadata().then((m) => m.format);
   if (!correctFormat(outputFormat)) {

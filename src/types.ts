@@ -4,5 +4,6 @@ export type Format = typeof FORMATS[number];
 export interface Query {
   w?: number;
   h?: number;
+  q?: number;
   fm?: Format;
 }
