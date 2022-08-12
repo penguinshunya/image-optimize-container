@@ -43,8 +43,8 @@ server.get("/*", async (req, res) => {
   }
   const pipe = object.createReadStream().pipe(sharp());
   pipe.resize(query.w, query.h);
-  if (query.format !== undefined) {
-    pipe.toFormat(query.format);
+  if (query.fm !== undefined) {
+    pipe.toFormat(query.fm);
   }
   const outputFormat = await pipe.metadata().then((m) => m.format);
   if (!correctFormat(outputFormat)) {
@@ -53,9 +53,10 @@ server.get("/*", async (req, res) => {
     return;
   }
   const buffer = await pipe.toBuffer();
-  res.header("Content-Type", toMimeType(query.format ?? outputFormat));
+  res.header("Content-Type", toMimeType(query.fm ?? outputFormat));
   res.header("Cache-Control", "public, max-age=2592000");
   res.send(buffer);
+  console.log(`Served ${path} with query ${JSON.stringify(query)}`);
 });
 
 server.listen({ host: "0.0.0.0", port: PORT }, () => {

@@ -21,26 +21,26 @@ describe("correctFormat", () => {
 describe("toQuery", () => {
   it("何も設定されていないときはすべて undefined が設定される", () => {
     const result = toQuery({});
-    expect(result).toEqual({ w: undefined, h: undefined, format: undefined });
+    expect(result).toEqual({ w: undefined, h: undefined, fm: undefined });
   });
 
   it("w と h に整数が設定されると整数値となる", () => {
     const result = toQuery({ w: "100", h: "200" });
-    expect(result).toEqual({ w: 100, h: 200, format: undefined });
+    expect(result).toEqual({ w: 100, h: 200, fm: undefined });
   });
 
-  it("format に無効な値を入れるとエラーが発生する", () => {
-    expect(() => toQuery({ format: "invalid" })).toThrowError();
+  it("fm に無効な値を入れるとエラーが発生する", () => {
+    expect(() => toQuery({ fm: "invalid" })).toThrowError();
   });
 
-  it("format に有効な値を入れるとその値が設定される", () => {
-    const result = toQuery({ format: "jpeg" });
-    expect(result).toEqual({ w: undefined, h: undefined, format: "jpeg" });
+  it("fm に有効な値を入れるとその値が設定される", () => {
+    const result = toQuery({ fm: "jpeg" });
+    expect(result).toEqual({ w: undefined, h: undefined, fm: "jpeg" });
   });
 
   it("すべてが正しく設定される", () => {
-    const result = toQuery({ w: "100", h: "200", format: "webp" });
-    expect(result).toEqual({ w: 100, h: 200, format: "webp" });
+    const result = toQuery({ w: "100", h: "200", fm: "webp" });
+    expect(result).toEqual({ w: 100, h: 200, fm: "webp" });
   });
 });
 

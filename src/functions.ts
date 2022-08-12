@@ -8,7 +8,7 @@ export function toQuery(raw: unknown): Query {
   interface RawQuery {
     w?: string;
     h?: string;
-    format?: string;
+    fm?: string;
   }
 
   const q = raw as RawQuery;
@@ -17,13 +17,13 @@ export function toQuery(raw: unknown): Query {
   if ((w !== undefined && isNaN(w)) || (h !== undefined && isNaN(h))) {
     throw new Error("Invalid query: w and h must be number");
   }
-  if (q.format !== undefined && !correctFormat(q.format)) {
+  if (q.fm !== undefined && !correctFormat(q.fm)) {
     throw new Error(
       "Invalid format: format must be one of avif, gif, jpeg, jpg, png, webp"
     );
   }
-  const format = q.format;
-  return { w, h, format };
+  const fm = q.fm;
+  return { w, h, fm };
 }
 
 export function toMimeType(format: Format): string {
