@@ -16,6 +16,10 @@ describe("correctFormat", () => {
   it("gif であれば true を返す", () => {
     expect(correctFormat("gif")).toBe(true);
   });
+
+  it("svg であれば true を返す", () => {
+    expect(correctFormat("svg")).toBe(true);
+  });
 });
 
 describe("toQuery", () => {
@@ -34,8 +38,14 @@ describe("toQuery", () => {
   });
 
   it("fm に有効な値を入れるとその値が設定される", () => {
-    const result = toQuery({ fm: "jpeg" });
-    expect(result).toEqual({ w: undefined, h: undefined, fm: "jpeg" });
+    {
+      const result = toQuery({ fm: "jpeg" });
+      expect(result).toEqual({ w: undefined, h: undefined, fm: "jpeg" });
+    }
+    {
+      const result = toQuery({ fm: "svg" });
+      expect(result).toEqual({ w: undefined, h: undefined, fm: "svg" });
+    }
   });
 
   it("q に無効な値を入れるとエラーが発生する", () => {
@@ -73,7 +83,13 @@ describe("toMimeType", () => {
   });
 
   it("その他は image/{format} に変換される", () => {
-    const result = toMimeType("png");
-    expect(result).toEqual("image/png");
+    {
+      const result = toMimeType("png");
+      expect(result).toEqual("image/png");
+    }
+    {
+      const result = toMimeType("svg");
+      expect(result).toEqual("image/svg");
+    }
   });
 });
